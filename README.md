@@ -76,3 +76,27 @@ Now that you have a running server, you can use it just like you would any other
 tiple VMs within one Vagrantfile.
 
 ## **Ad-Hoc Commands**
+
+Systems administrator has many tasks:
+
+> Apply patches and updates via yum , apt , and other package managers.
+
+> Check resource usage (disk space, memory, CPU, swap space, network).
+
+> Check log files.
+
+> Manage system users and groups.
+
+> Manage DNS settings, hosts files, etc.
+
+> Copy files to and from servers.
+
+> Deploy applications or run application maintenance.
+
+> Reboot servers.
+
+> Manage cron jobs.
+
+
+* Ansible allows admins to run ad-hoc commands on one or hundreds of machines
+at the same time, using the ansible command.
