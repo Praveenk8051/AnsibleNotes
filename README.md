@@ -1,6 +1,15 @@
-# AnsibleNotes
 
-Summary of the book "Ansible for DevOps" by Jeff Geerlings
+
+<div id="top"></div>
+
+<div align="center"> <h1> Ansible for DevOps </h1>  
+Summary of the book "Ansible for DevOps" by Jeff Geerlings 
+	</div>
+<p>
+	<br>
+</p>  
+
+
 
 
 
@@ -197,6 +206,15 @@ Below is an example and explanation!
 
   * The first line, `---` , is how we mark this document as using YAML syntax
 
+  * The second line, `- hosts: all` tells Ansible to run the play on all hosts that it knows about
 
+  * The third line, become: yes tells Ansible to run all the commands through sudo, so the commands will be run as the root user.
+  * The fifth line, `tasks:` , tells Ansible that what follows is a list of tasks to run as part of this play.
+  * The first task begins with `name: Install Apache`. it’s a way of giving a human-readable description to the task that follows.
 
+  * Ansible allows lists of variables to be passed into tasks using `with_items :` Define a list of items and each one will be passed into the play, referenced using the item variable `(e.g. {{ item }} )`.
 
+  * In this case, we are using a list of items containing dicts (dictionaries) used for variable substitution; to define each element in a list of dicts with each list item in the format:
+  `var1: value`, `var2: value`
+
+  * `ansible-playbook playbook.yml --list-hosts` : List all the available hosts
