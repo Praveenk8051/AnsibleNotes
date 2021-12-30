@@ -11,6 +11,7 @@ Summary of the book "Ansible for DevOps" by Jeff Geerlings
 | 3. [**Getting Started**](#getting-started) |
 | 4. [**Local Infrastructure Developement**](#local-infrastructure) |
 | 5. [**Ad-Hoc Commands**](#ad-hoc-commands) |
+| 6. [**Ansible Playbooks**](#ansible-playbooks) |
 
 
 ## **Preface** ##
@@ -76,6 +77,7 @@ Now that you have a running server, you can use it just like you would any other
 tiple VMs within one Vagrantfile.
 
 ## **Ad-Hoc Commands**
+Here we can configure, monitore, and manage the infrastructure without ever logging in to an individual server using Adhoc commands
 
 Systems administrator has many tasks:
 
@@ -167,18 +169,33 @@ failure—especially, for example, when running backgrounded tasks that
 perform backup operations, or when running business-critical database
 maintenance tasks.
 
+* `ansible multi -b -a "tail /var/log/messages"` : Using ansible log files can be checked
+
+* `ansible multi -b -m cron -a "name='daily-cron-all-servers' \
+hour=4 job='/path/to/daily-script.sh'"` : ansible can be advised to run cron job on servers every once in a while
+
+* `ansible multi -b -m cron -a "name='daily-cron-all-servers' \
+state=absent"` : Cron job can be deleted by using the following command
+
+
+* Git updates can be rolled into the servers using ansible
+
+  * `ansible app -b -m git -a "repo=git://example.com/path/to/repo.git dest=/opt/myapp update=yes version=1.2.4"` : it checkout to the application’s new version branch,
+
+  * `ansible app -b -a "/opt/myapp/update.sh"` Then, run the application’s update.sh shell script
+
+## **Ansible Playbooks** ##
+Playbooks are written in YAML⁴⁹, a simple human-readable syntax popular for defining configuration. Playbooks may be included within other playbooks, and certain metadata and options cause different plays or playbooks to be run in different scenarios on different servers.
+
+Below is an example and explanation!
 
 
 
+![image](/images/ansible1.png)
 
+* The commands are explained as below:
 
-
-
-
-
-
-
-
+  * The first line, `---` , is how we mark this document as using YAML syntax
 
 
 
