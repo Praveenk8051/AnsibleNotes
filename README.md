@@ -218,3 +218,27 @@ Below is an example and explanation!
   `var1: value`, `var2: value`
 
   * `ansible-playbook playbook.yml --list-hosts` : List all the available hosts
+
+* Some of the command definitions:
+
+    * `register` creates a new variable, *xyz* , to be used in the next play to determine when to run the play. register stashes the output (stdout, stderr) of the defined command in the variable name passed to it.
+
+    * `changed_when` tells Ansible explicitly when this play results in a change to the server.
+
+    * `var_files`: Using one or more included variable files cleans up your main playbook file, and lets you organize all your 
+    configurable variables in one place
+    
+    * `pre_tasks`: Ansible lets you run tasks before or after the main tasks or roles  using `pre_tasks` and `post_tasks`, respectively
+
+    * `handlers` : are special kinds of tasks you run at the end of a play by adding the `notify` option to any of the tasks in that group. The handler will only be called if one of the tasks notifying the handler makes a change to the server and it will only be notified at the end of the play. To call the handler from a task, add the option `notify: restart` apache to any task
+in the play
+
+    * `lineinfile` module does a simple task: ensures that a particular line of text exists (or doesn’t exist) in a file.
+
+    
+
+* By default, Ansible will stop all playbook execution when a task fails, and won’t notify any handlers that may need to be triggered. In some cases, this leads to unintended side effects. If you want to make sure handlers always run after a task uses notify to call the handler, even in case of playbook failure, add `--force-handlers` to your ansible-playbook command.
+
+
+
+
