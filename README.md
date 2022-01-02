@@ -44,7 +44,7 @@ writing the code, and the operators running the application.
 ### Inventory File ###
 * Ansible uses an inventory file (basically, a list of servers) to communicate with  servers. Like a hosts file (at /etc/hosts ) that matches IP addresses to domain names, an Ansible inventory file matches servers (IP addresses or domain names) to groups
 
-* If ort 22 for SSH on the server is not used, you will need to add it to the address, like www.example.com:2222, since Ansible defaults to port 22
+* If port 22 for SSH on the server is not used, you will need to add it to the address, like `www.example.com:2222`, since Ansible defaults to port 22
 
 ```ansible -i hosts.ini example -m ping -u [username]```
 
@@ -275,7 +275,7 @@ can do that by adding lines to the remote user’s `.bash_profile`
 * In any case, it’s pretty simple to manage environment variables on the server with `lineinfile` . If your application requires many environment variables, you might consider using  `copy` or `template` with a local file instead of using `lineinfile` with a large list of items
 
 
-
+### **Playbook Variables**
 
 
 
