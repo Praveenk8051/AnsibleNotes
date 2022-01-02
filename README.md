@@ -21,6 +21,7 @@ Summary of the book "Ansible for DevOps" by Jeff Geerlings
 | 4. [**Local Infrastructure Developement**](#local-infrastructure) |
 | 5. [**Ad-Hoc Commands**](#ad-hoc-commands) |
 | 6. [**Ansible Playbooks**](#ansible-playbooks) |
+| 7. [**Beyond Basics**](#beyond-basics) |
 
 
 ## **Preface** ##
@@ -233,12 +234,13 @@ Below is an example and explanation!
     * `handlers` : are special kinds of tasks you run at the end of a play by adding the `notify` option to any of the tasks in that group. The handler will only be called if one of the tasks notifying the handler makes a change to the server and it will only be notified at the end of the play. To call the handler from a task, add the option `notify: restart` apache to any task
 in the play
 
-    * `lineinfile` module does a simple task: ensures that a particular line of text exists (or doesn’t exist) in a file.
+    * `lineinfile` module does a simple task: ensures that a particular line of text exists (or doesn’t exist) in a file. First, we tell `lineinfile` the location of the file, in the `dest` parameter. Then, we give a regular expression (Python-style) to define what the line looks like. Next, we tell  `lineinfile` exactly how the resulting line should look. Finally, we explicitly `state` that we want this line to be present.
 
-    
+
+
 
 * By default, Ansible will stop all playbook execution when a task fails, and won’t notify any handlers that may need to be triggered. In some cases, this leads to unintended side effects. If you want to make sure handlers always run after a task uses notify to call the handler, even in case of playbook failure, add `--force-handlers` to your ansible-playbook command.
 
-
+## **Beyond Basics** ##
 
 
