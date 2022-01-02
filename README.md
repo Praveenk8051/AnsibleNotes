@@ -277,30 +277,75 @@ can do that by adding lines to the remote user’s `.bash_profile`
 
 ### **Playbook Variables**
 
+* `ansible-playbook example.yml --extra-vars "foo=bar"`: Variables can be passed in via the command line, when calling `ansible-playbook` ,with the `--extra-vars` option
+
+* You can also pass in extra variables using quoted JSON, YAML, or even by passing a JSON or YAML file directly, like `--extra-vars "@even_more_vars.json"` or `--extra-vars "@even_more_vars.yml`
+
+* Variables may be included inline with the rest of a playbook, in a `vars` section
+
+* Variables may also be included in a separate file, using the `vars_files` section
+
+* One can conditionally include variables files using `include_vars`
+
+
+### **Inventory variables**
+Variables may also be added via Ansible inventory files, either `inline` with a host definition, or after a `group`
+
+
+![image](/images/ansible5.png)
+
+* If you need to define more than a few variables, especially variables that apply to more than one or two hosts, inventory files can be cumbersome. In fact, Ansible’s
+documentation recommends not storing variables within the inventory. Instead, you can use `group_vars` and `host_vars` YAML variable files within a specific path, and Ansible will assign them to individual hosts and groups defined in your inventory
+
+### **Registered Variables**
+
+
+* There are many times that you will want to run a command, then use its return code, `stderr`, or `stdout` to determine whether to run a later task. For these situations, Ansible allows you to use register to store the output of a particular command in a variable at runtime.
 
 
 
+### **Facts**
+* If you don’t need to use facts, and would like to save a few seconds per-host when running playbooks (this can be especially helpful when running an Ansible playbook against dozens or hundreds of servers), you can set `gather_facts: no` in your playbook
+
+
+### **Ansible Vault - Keeping secrets secret**
+* It’s better to treat passwords and sensitive data specially, and
+there are two primary ways to do this:
+   * Use a separate secret management service, such as `Vault` by `HashiCorp`,`Keywhiz` by Square, or a hosted service like `AWS’s Key Management Service` or `Microsoft Azure’s Key Vault`.
+   * Use `Ansible Vault`, which is built into Ansible and stores encrypted passwords and other sensitive data alongside the rest of your playbook.
 
 
 
+* Ansible Vault 
+   * You take any YAML file you would normally have in your playbook (e.g. a variables file, host vars, group vars, role default vars, or even task includes!), and store it in the vault.
+   * Ansible encrypts the vault (‘closes the door’), using a key (a password you set).
+   * You store the key (your vault’s password) separately from the playbook in a location only you control or can access.
+   * You use the key to let Ansible decrypt the encrypted vault whenever you run your playbook.
+   * `ansible-vault encrypt vars/api_key.yml` : To encrypt the file with Vault, run
+
+  * `ansible-playbook main.yml --ask-vault-pass
+Vault password:` Password can also be provided at runtime.
+
+  * `ansible-playbook main.yml --vault-password-file ~/.ansible/\
+vault_pass.txt` : Create the file `∼/.ansible/vault_pass.txt` with your password in it, set permissions to 600 , and tell Ansible the location of the file when you run the playbook
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### **Variable Precendence**
+* Variable Precendence*
+   * --extra-vars passed in via the command line (these always win, no matter
+what).
+   * Task-level vars (in a task block).
+   * Block-level vars (for all tasks in a block).
+   * Role vars (e.g. [role]/vars/main.yml ) and vars from include_vars module.
+   * Vars set via set_facts modules.
+   * Vars set via register in a task.
+   * Individual play-level vars: 1. vars_files 2. vars_prompt 3. vars
+   * Host facts.
+   * Playbook host_vars .
+   * Playbook group_vars .
+   * Inventory: 1. host_vars 2. group_vars 3. vars
+   * Role default vars (e.g. `[role]/defaults/main.yml` )
 
 
 
