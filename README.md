@@ -299,6 +299,7 @@ documentation recommends not storing variables within the inventory. Instead, yo
 
 ### **Registered Variables**
 
+* In Ansible, any play can `register` a variable, and once registered, that variable will be available to all subsequent tasks.
 
 * There are many times that you will want to run a command, then use its return code, `stderr`, or `stdout` to determine whether to run a later task. For these situations, Ansible allows you to use register to store the output of a particular command in a variable at runtime.
 
