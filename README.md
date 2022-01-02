@@ -243,4 +243,67 @@ in the play
 
 ## **Beyond Basics** ##
 
+### **Handlers**
 
+* `handlers` are used to restart the a software. `tasks` can be used along with `notify` option to tell `handler` to restart
+
+* Some cases, one may have to notify multiple `handlers` or `handlers` may have to notify additional `handlers`
+
+* To notify multiple `handlers` from one task, use a list for the `notify` option
+
+![image](/images/ansible2.png)
+
+To have one `handler` notify another, add a `notify` option onto the `handler`—`handlers` are basically glorified `tasks` that can be called by the `notify` option, but since they act as `tasks` themselves, they can chain themselves to other `handlers`
+
+![image](/images/ansible3.png)
+
+• `Handlers` will only be run if a `task` notifies the `handler`; if a task that would’ve notified the handlers is skipped due to a `when` condition or something of the like, the `handler` will not be run.
+
+• `Handlers` will run once, and only once, at the end of a play. If you absolutely need to override this behavior and run handlers in the middle of a playbook, you can use the `meta` module to do so (e.g. - `meta: flush_handlers` ).
+
+• If the play fails on a particular `host` (or all hosts) before handlers are notified, the handlers will never be run. If it’s desirable to always run handlers, even after the playbook has failed, you can use the `meta` module as described above as a separate task in the playbook, or you use the command line flag `--force-handlers` when running your playbook. Handlers won’t run on any hosts that became unreachable during the playbook’s run.
+
+
+### **Environment Variables**
+* Set some environment variables for your remote user account, you
+can do that by adding lines to the remote user’s `.bash_profile`
+
+![image](/images/ansible4.png)
+
+* It’s recommended you use a task’s `register` option to store the environment variable in a variable Ansible can use later
+
+* In any case, it’s pretty simple to manage environment variables on the server with `lineinfile` . If your application requires many environment variables, you might consider using  `copy` or `template` with a local file instead of using `lineinfile` with a large list of items
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
