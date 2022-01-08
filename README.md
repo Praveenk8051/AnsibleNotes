@@ -439,3 +439,10 @@ user.
 then create a master playbook that includes each of the individual playbooks.
 
 ![image](/images/ansible10.png)
+
+
+**General**
+
+* Most of the time, it’s best to start with a monolithic playbook while you’re working on the setup and configuration details, then move sets of tasks out to included files after you start seeing logical groupings
+
+### **Roles** ###
