@@ -446,3 +446,30 @@ then create a master playbook that includes each of the individual playbooks.
 * Most of the time, it’s best to start with a monolithic playbook while you’re working on the setup and configuration details, then move sets of tasks out to included files after you start seeing logical groupings
 
 ### **Roles** ###
+
+* There are only two directories required to make a working Ansible role:
+
+![image](/images/ansible11.png)
+
+* If you create a directory structure like the one shown above, with a *main.yml* file in each directory, Ansible will run all the tasks defined in *tasks/main.yml* if you call the role from your playbook using the following syntax
+
+![image](/images/ansible12.png)
+ 
+* Your roles can live in a couple different places: the default global Ansible role path *(configurable in /etc/ansible/ansible.cfg)*, or a roles folder in the same directory as your main playbook file
+
+* `ansible-galaxy role init role_name` : Running this command creates an example role in the current working directory, which you can modify to suit your needs. Using the init command also ensures the role is structured correctly in case you want to someday contribute the role to
+Ansible Galaxy
+
+* *meta*: file which tells about the meta information like dependencies.
+
+* *pre-tasks*: Can be used for firewall configuration
+
+* Main playbook can consist of order *pre_tasks*, *roles* and *tasks*
+
+
+**More flexibility with role vars and defaults**
+* When running a role’s tasks, Ansible picks up variables defined in a role’s *vars/main.yml* file and *defaults/main.yml*, but will allow your playbooks to override the defaults or other role-provided variables if you want.
+
+* **Variable precedence**: Note that Ansible handles variables placed in included files in *defaults* with less precedence than those placed in *vars*. If you have certain variables you need to allow hosts/playbooks to easily override, you should probably put them into *defaults*. If they are common variables that should almost always be the values defined in your role, put them into *vars*
+
+**Other role parts: handlers, files, and templates**
