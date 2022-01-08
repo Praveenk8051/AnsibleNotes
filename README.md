@@ -415,3 +415,27 @@ user.
 * *block* can be executed with *rescue* and *always*. 
 
 ## **Playbook Organization - Roles, Includes, and Imports** ##
+* Ansible is flexible when it comes to organizing tasks in more efficient ways so you can make playbooks more maintainable, reusable, and powerful
+
+### **Imports** ###
+* Basic way of importing, when *vars_files* was used to place variables into a separate *vars.yml* file instead of inline with the playbook
+
+* In the tasks: section of your playbook, you can add import_tasks directives like so
+
+![image](/images/ansible7.png)
+
+### **Includes** ###
+* If you need to have included tasks that are dynamic that is, they need to do different things depending on how the rest of the playbook runs—then you can use *include_tasks* rather than *import_tasks*
+
+![image](/images/ansible8.png)
+
+**Dynamic Inlcudes**
+* Until Ansible 2.0, *includes* were always processed when your playbook run started (just like *import_tasks* behaves now), so you couldn’t do things like load a particular include when some condition was met. Ansible 2.0 and later evaluates includes during playbook execution, so you can do something like the following
+
+![image](/images/ansible9.png)
+
+**Playbook Imports**
+* create playbooks to configure all the servers in your infrastructure,
+then create a master playbook that includes each of the individual playbooks.
+
+![image](/images/ansible10.png)
