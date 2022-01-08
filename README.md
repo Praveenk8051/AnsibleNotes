@@ -350,6 +350,43 @@ what).
 
 
 
+### **If/then/when conditionals**
 
-
+* Jinja supports conditionals, math operations and checks to perform
+*  For the few cases where Jinja doesn’t provide enough power and flexibility, you can invoke Python’s built-in library functions (like string.split , [number].is_signed() ) to manipulate variables and determine whether a given task should be run, resulted in a change, failed, etc
+* It’s generally best to stick with simpler Jinja filters and variables, but it’s nice to be able to use Python when you’re doing more advanced variable manipulation.
  
+
+ **when**
+ * *when* can be used as boolean
+
+ * **changed_when** and **failed_when**
+ *register* variable is used to store intermediate result and check if the variable is *changed_when* or *failed_when* to process further results
+
+**ignore_errors**
+* to avoid stopping ansible-playbook from execution
+
+**Delegation**
+* Ansible allows any task to be delegated to a particular host using *delegate_to*
+
+**Local Action**
+* Ansible has a convenient shorthand you can use, *local_action*,instead of adding the entire *delegate_to* line
+
+**wait_for**:
+* *wait for* a freshly booted server or application to start listening on a particular port
+
+* *wait_for* can be used to pause your playbook execution to wait for many different things:
+
+  * Using *host* and *port*, wait a maximum of *timeout* seconds for the port to be available (or not).
+
+  * Using *path* (and *search_regex* if desired), wait a maximum of timeout  seconds for the file to be present (or absent).
+
+  * Using *host* and *port* and *drained* for the *state* parameter, check if a given port has drained all it’s active connections.
+
+  * Using *delay*, you can simply pause playbook execution for a given amount of time (in seconds).
+
+
+* `ansible-playbook test.yml --connection=local` : speed's up the excution process by removing the SSH connection overhead
+
+
+**vars_prompt**: Used in yml file. Let's user excute the *password* or *network* details
