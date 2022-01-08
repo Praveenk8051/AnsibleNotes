@@ -521,8 +521,28 @@ submission to Ansible Galaxy
 
 ### **Ansible Plugins and Content Collections**
 
+* Ansible Collections allow for easier distribution of Ansible content plugins, modules, and roles and have also helped to make Ansible’s own maintenance more evenly distributed
+
 * Ansible plugins—Python code to extend Ansible’s functionality with new modules,filters, inventory plugins
 
 * Adding this kind of content to a role is not ideal, and in a sense, overloads the role by putting both Python code and Ansible YAML into the same entity
 
 * This is why, in Ansible 2.8, Collections, or more formally, Content Collections, were introduced.
+
+* Collections allow the gathering of Ansible plugins, roles, and even playbooks into one entity, in a more structured way that Ansible, Ansible Galaxy, and Automation Hub can scan and consume.
+
+* Collections allow the gathering of Ansible plugins, roles, and even playbooks into one entity, in a more structured way that Ansible, Ansible Galaxy, and Automation Hub can scan and consume.
+
+* Check-out `https://docs.ansible.com/ansible/latest/dev_guide/developing_collections.html`
+
+
+* `ansible-galaxy install -r requirements.yml` : Mention collection in `yml` file and before running your playbook that uses the collection, install all the required collections with ansible-galaxy
+
+* Version constraints can be specified in `requirements.yml`
+
+* By default collections are installed at :
+
+   * ∼/.ansible/collections
+   * /usr/share/ansible/collections
+
+* But you can override the setting in your own projects by setting the `ANSIBLE_-COLLECTIONS_PATH` environment variable, or setting collections_path in an `ansible.cfg` file alongside your playbook.
