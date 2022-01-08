@@ -22,6 +22,8 @@ Summary of the book "Ansible for DevOps" by Jeff Geerlings
 | 5. [**Ad-Hoc Commands**](#ad-hoc-commands) |
 | 6. [**Ansible Playbooks**](#ansible-playbooks) |
 | 7. [**Beyond Basics**](#beyond-basics) |
+| 8. [**Playbook Organization - Roles, Includes, and Imports**](#playbook-organisation) |
+
 
 
 ## **Preface** ##
@@ -390,3 +392,26 @@ what).
 
 
 **vars_prompt**: Used in yml file. Let's user excute the *password* or *network* details
+* There are a few special options you can add to prompts:
+  * *private* : If set to yes , the user’s input will be hidden on the command line.
+  * *default* : You can set a default value for the prompt, to save time for the end
+user.
+  * *encrypt / confirm / salt_size* : These values can be set for passwords so you can verify the entry (the user will have to enter the password twice if confirm is set to yes ), and encrypt it using a salt (with the specified size and crypt scheme).
+
+* It’s preferable to use role or playbook variables, inventory variables, or even local environment variables, to maintain complete automation of the playbook run
+
+**Tags**
+* Tags allow you to run (or exclude) subsets of a playbook’s tasks.
+* You can tag roles, included files, individual tasks, and even entire plays
+* You will need to find a tagging style that suits your needs and lets you run (or not run) the specific parts of your playbooks you desire
+
+**Blocks**
+* Blocks allow you to group related tasks together and apply particular task parameters on the block level.
+
+* They also allow you to handle errors inside the blocks in a way similar to most programming languages’ exception handling.
+
+![image](/images/ansible6.png)
+
+* *block* can be executed with *rescue* and *always*. 
+
+## **Playbook Organization - Roles, Includes, and Imports** ##
