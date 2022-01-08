@@ -23,6 +23,8 @@ Summary of the book "Ansible for DevOps" by Jeff Geerlings
 | 6. [**Ansible Playbooks**](#ansible-playbooks) |
 | 7. [**Beyond Basics**](#beyond-basics) |
 | 8. [**Playbook Organization - Roles, Includes, and Imports**](#playbook-organisation) |
+| 9. [**Ansible Plugins and Content Collections**](#ansible-plugins) |
+
 
 
 
@@ -446,7 +448,7 @@ then create a master playbook that includes each of the individual playbooks.
 * Most of the time, it’s best to start with a monolithic playbook while you’re working on the setup and configuration details, then move sets of tasks out to included files after you start seeing logical groupings
 
 ### **Roles** ###
-
+* Using includes and Ansible roles organizes Playbooks and makes them maintainable
 * There are only two directories required to make a working Ansible role:
 
 ![image](/images/ansible11.png)
@@ -473,3 +475,54 @@ Ansible Galaxy
 * **Variable precedence**: Note that Ansible handles variables placed in included files in *defaults* with less precedence than those placed in *vars*. If you have certain variables you need to allow hosts/playbooks to easily override, you should probably put them into *defaults*. If they are common variables that should almost always be the values defined in your role, put them into *vars*
 
 **Other role parts: handlers, files, and templates**
+* You can store *handlers* directly inside a *main.yml* file inside a role’s handlers directory
+* You can call handlers defined in a role’s handlers folder just like those included directly in your playbooks (e.g. *notify: restart apache*)
+
+**Files and Templates**
+* when copying a file directly to the server, add the filename or the full path from within a role’s files directory, like so
+
+![image](/images/ansible13.png)
+
+
+* Similarly, when specifying a template, add the filename or the full path from within a role’s templates directory, like so:
+
+![image](/images/ansible14.png)
+
+* The copy module copies files from within the module’s files folder, and the template module runs given template files through the Jinja templating engine, merging in any variables available during your playbook run before copying the file to the server.
+
+**Organizing more complex and cross-platform roles**
+* As a rule of thumb, I keep my playbook and role task files under 100 lines of YAML if at all possible
+
+### **Ansible Galaxy**
+
+* Ansible roles are powerful and flexible; they allow you to encapsulate sets of configuration and deployable units of playbooks, variables, templates, and other files, so you can easily reuse them across different servers
+
+* People could share roles for commonly-installed applications and services
+
+* Ansible Galaxy, or just ‘Galaxy’, is a repository of community-contributed Ansible
+content
+
+* Galaxy offers the ability to add, download, and rate roles. One of the primary functions of the ansible-galaxy command is retrieving roles
+from Galaxy. Roles must be downloaded before they can be used in playbooks
+
+**Using role requirements files to manage dependencies**
+* Define *requirements.yml* to download roles from Ansible Galaxy,
+GitHub, an HTTP download, BitBucket, or your own repository
+* `ansible-galaxy install -r requirements.yml` : To install the roles defined in a requirements file, use the following command
+
+**Ansible Commands**
+* Some other helpful ansible-galaxy commands you might use from time to time:
+  * `ansible-galaxy role list`:  displays a list of installed roles, with version
+numbers
+  * `ansible-galaxy role remove [role]` removes an installed role
+  * `ansible-galaxy role init` can be used to create a role template suitable for
+submission to Ansible Galaxy
+
+
+### **Ansible Plugins and Content Collections**
+
+* Ansible plugins—Python code to extend Ansible’s functionality with new modules,filters, inventory plugins
+
+* Adding this kind of content to a role is not ideal, and in a sense, overloads the role by putting both Python code and Ansible YAML into the same entity
+
+* This is why, in Ansible 2.8, Collections, or more formally, Content Collections, were introduced.
