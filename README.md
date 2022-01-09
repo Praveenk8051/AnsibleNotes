@@ -22,7 +22,7 @@ Summary of the book "Ansible for DevOps" by Jeff Geerlings
 | 5. [**Ad-Hoc Commands**](#ad-hoc-commands) |
 | 6. [**Ansible Playbooks**](#ansible-playbooks) |
 | 7. [**Beyond Basics**](#beyond-basics) |
-| 8. [**Playbook Organization - Roles, Includes, and Imports**](#playbook-organisation-roles-includes-and-imports) |
+| 8. [**Playbook Organization - Roles, Includes, and Imports**](#playbook-organisation--roles-includes-and-imports) |
 | 9. [**Ansible Plugins and Content Collections**](#ansible-plugins-and-content-collections) |
 
 
@@ -576,10 +576,19 @@ inventory is specified. However, that file requires `sudo` permissions and it is
 
 **Dynamic Inventories**
  
-* *TBD(Dynamic INventory with DigitalOcean & AWS)*
+* *TBD(Dynamic Inventory with DigitalOcean & AWS)*
 
+**Multiple inventory sources - mixing static and dynamic inventories**
 
+* *TBD*
 
+**Creating custom dynamic inventories**
+
+* *TBD*
+
+**Building a Custom Dynamic Inventory in Python, PHP**
+
+* *TBD*
 
 
 
