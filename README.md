@@ -24,7 +24,7 @@ Summary of the book "Ansible for DevOps" by Jeff Geerlings
 | 7. [**Beyond Basics**](#beyond-basics) |
 | 8. [**Playbook Organization - Roles, Includes, and Imports**](#playbook-organisation--roles-includes-and-imports) |
 | 9. [**Ansible Plugins and Content Collections**](#ansible-plugins-and-content-collections) |
-
+| 10. [**Deployments**](#deployments) |
 
 
 
@@ -590,6 +590,6 @@ inventory is specified. However, that file requires `sudo` permissions and it is
 
 * *TBD*
 
-
+## **Deployments** ##
 
 
