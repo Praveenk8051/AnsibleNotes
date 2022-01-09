@@ -546,3 +546,41 @@ submission to Ansible Galaxy
    * /usr/share/ansible/collections
 
 * But you can override the setting in your own projects by setting the `ANSIBLE_-COLLECTIONS_PATH` environment variable, or setting collections_path in an `ansible.cfg` file alongside your playbook.
+
+
+* Ansible uses an inventory file (basically, a list of servers) to communicate with your servers
+
+* You can also place your inventory in Ansible’s global inventory file,
+`/etc/ansible/hosts`, and any playbook will default to that if no other
+inventory is specified. However, that file requires `sudo` permissions and it is usually better to maintain inventory alongside your ansible projects.
+
+* There are many ways you can tell Ansible about the servers you manage, but the most standard, and simplest, is to add them to an inventory file you store with your Ansible project
+
+* With the help of inventory files one will be able to configure different requirements on different servers. For ex: web app servers, database servers, logging server, and node.js app servers
+
+* For extremely simple use cases—usually when you need to define one or two connection-related variables (like *ansible_user* or *ansible_ssh_port*)  you can place variables directly inside an inventory file.
+
+
+**host_vars**
+
+* This file can be placed either in the same location as your inventory file, or in a playbook’s root directory
+
+* If there are any variables defined in the file (in YAML format), those variables will override all other playbook and role variables and gathered facts, *only for the single host*
+
+* Overriding host variables with host_vars is much more maintainable than doing so directly in static inventory files, and also provides greater visibility into what hosts are getting what overrides.
+
+
+**group_vars**
+* Much like *host_vars*, Ansible will automatically load any files named after inventory groups in a *group_vars* directory placed inside the playbook or inventory file’s location
+
+
+**Dynamic Inventories**
+ 
+* *TBD*
+
+
+
+
+
+
+
